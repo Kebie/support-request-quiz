@@ -1,0 +1,24 @@
+<h1>All Support Requests</h1>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Message</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @requests.each do |request| %>
+    <tr>
+      <td><%= request.name %></td>
+      <td><%= request.email %></td>
+      <td><%= request.department.capitalize! %></td>
+      <td><%= request.message %></td>
+      <td>
+        <%= link_to "Edit", edit_request_path(request), class: "btn btn-primary"%>
+        <%= link_to "Delete", request, method: :delete, data: {confirm: "Are you sure you want to delete this requst?"}, class: "btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
