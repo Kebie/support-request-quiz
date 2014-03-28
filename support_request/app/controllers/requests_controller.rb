@@ -3,8 +3,10 @@ class RequestsController < ApplicationController
   before_action :find_request,
                 only: [:show, :edit, :destroy, :update, :done]
 
+  before_action :list_of_requests, only: [:index]
+
   def index
-    @requests = Request.all.order("done ASC")
+    
   end
 
   def create
@@ -43,6 +45,12 @@ class RequestsController < ApplicationController
     end
   end
 
+  def search
+    @requests = Request.search(params[:search_term])
+    render :index
+  end
+
+
   #marks the project as done, and then sends them back to the main page.
   def done
     @request.done ^= true #XOR switches TRUE and FALSE so if DONE -> not done and visa versa
@@ -58,6 +66,10 @@ class RequestsController < ApplicationController
 
   def find_request
     @request = Request.find(params[:id])
+  end
+
+  def list_of_requests
+      @requests = Request.all.order("done ASC")
   end
 
 end
