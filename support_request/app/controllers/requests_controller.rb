@@ -46,7 +46,7 @@ class RequestsController < ApplicationController
   end
 
   def search
-    @requests = Request.search(params[:search_term])
+    @requests = Request.search(params[:search_term]).paginate(:page => params[:page], :per_page => 3).order('done ASC')
     render :index
   end
 
@@ -69,7 +69,8 @@ class RequestsController < ApplicationController
   end
 
   def list_of_requests
-      @requests = Request.all.order("done ASC")
+      @requests = Request.paginate(:page => params[:page], :per_page => 3).order('done ASC')
+      #@requests = Request.all.order("done ASC")
   end
 
 end
