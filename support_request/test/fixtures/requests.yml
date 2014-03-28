@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  email: 
+  department: 
+  message: 
+  completed: false
+
+two:
+  name: 
+  email: 
+  department: 
+  message: 
+  completed: false
