@@ -1,10 +1,10 @@
 class RequestsController < ApplicationController
   
   before_action :find_request,
-                only: [:show, :edit, :destroy, :update]
+                only: [:show, :edit, :destroy, :update, :done]
 
   def index
-    @requests = Request.all
+    @requests = Request.all.order("done ASC")
   end
 
   def create
@@ -35,13 +35,19 @@ class RequestsController < ApplicationController
     @request = Request.new    
   end
 
-
   def destroy
     if @request.destroy
       redirect_to requests_path, notice: "Request deleted"
     else
       redirect_to request_path, error: "We had a problem deleting your request"
     end
+  end
+
+  #marks the project as done, and then sends them back to the main page.
+  def done
+    @request.done ^= true #XOR switches TRUE and FALSE so if DONE -> not done and visa versa
+    @request.save
+    redirect_to requests_path, notice: "Request status updated"
   end
 
   private

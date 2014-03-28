@@ -1,6 +1,12 @@
 SupportRequest::Application.routes.draw do
 
-  resources :requests
+  resources :requests do
+    member do#create a special action of vote_up int he controller. on: :member makes it take an ID
+      post :done
+      get :done
+    end
+    post :search, on: :collection#collection means NO ID...
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
